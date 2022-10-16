@@ -1,10 +1,9 @@
+import 'package:client/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _availableViewModes = <String>['Normal mode', 'Edit mode'];
-
 final currentViewModeProvider = StateProvider<String>((ref) {
-  return _availableViewModes.first;
+  return Data().availableViewModes.first;
 });
 
 final _getCurrentViewMode = Provider<String>((ref) {
@@ -14,10 +13,10 @@ final _getCurrentViewMode = Provider<String>((ref) {
 
 final _getCurrentViewModeButtonText = Provider<String>((ref) {
   final currentViewMode = ref.watch(currentViewModeProvider.state).state;
-  if (currentViewMode == _availableViewModes[0]) {
-    return _availableViewModes[1];
+  if (currentViewMode == Data().availableViewModes[0]) {
+    return Data().availableViewModes[1];
   } else {
-    return _availableViewModes[0];
+    return Data().availableViewModes[0];
   }
 });
 
@@ -52,10 +51,12 @@ class TopBar extends ConsumerWidget implements PreferredSizeWidget {
                   child: OutlinedButton(
                       onPressed: () {
                         if (ref.watch(_getCurrentViewMode) ==
-                            _availableViewModes[0]) {
-                          _selectViewMode(context, ref, _availableViewModes[1]);
+                            Data().availableViewModes[0]) {
+                          _selectViewMode(
+                              context, ref, Data().availableViewModes[1]);
                         } else {
-                          _selectViewMode(context, ref, _availableViewModes[0]);
+                          _selectViewMode(
+                              context, ref, Data().availableViewModes[0]);
                         }
                       },
                       child: Text(
